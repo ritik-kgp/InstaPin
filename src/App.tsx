@@ -21,7 +21,8 @@ const App = () => {
 
         {/* private routes */}
         <Route element={<RootLayout />}>
-        <Route index element={<Home />}/>
+        <Route index element={<Home />}/> 
+        {/* index mean starting page */}
         </Route>
 
       </Routes>
