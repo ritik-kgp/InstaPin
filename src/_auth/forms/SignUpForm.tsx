@@ -15,8 +15,10 @@ import { SignupValidation } from "@/lib/validation";
 import Loader from "@/components/shared/Loader";
 import { Link } from "react-router-dom";
 import { createUserAccount } from "@/lib/appwrite/api";
+import { useToast } from "@/components/ui/use-toast";
 
 const SignUpForm = () => {
+  const { toast } = useToast();
   const isLoading = false;
 
   // 1. Define your form.
@@ -33,7 +35,12 @@ const SignUpForm = () => {
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
     const newUser = await createUserAccount(values);
-    console.log(newUser);
+
+    if (!newUser) {
+      return toast({
+        title: "Sign Up failed, Please try again",
+      });
+    }
   }
 
   return (
@@ -109,7 +116,10 @@ const SignUpForm = () => {
 
           <Button type="submit" className="shad-button_primary w-full mt-5">
             {isLoading ? (
-              <div className="flex-center gap-2"><Loader />Loading...</div>
+              <div className="flex-center gap-2">
+                <Loader />
+                Loading...
+              </div>
             ) : (
               "Sign up"
             )}
@@ -117,7 +127,12 @@ const SignUpForm = () => {
 
           <p className="text-small-regular text-light-2 text-center mt-2">
             Already have an account?
-            <Link to="/sign-in" className="text-primary-500 text-small-semibold ml-1 ">Log In</Link>
+            <Link
+              to="/sign-in"
+              className="text-primary-500 text-small-semibold ml-1 "
+            >
+              Log In
+            </Link>
           </p>
         </form>
       </div>

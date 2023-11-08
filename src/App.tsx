@@ -5,7 +5,8 @@ import SignUpForm from './_auth/forms/SignUpForm';
 import RootLayout from './_root/RootLayout';
 import { Home } from './_root/pages';
 import './globals.css';
-import { Route,Routes } from 'react-router-dom'
+import { Route,Routes } from 'react-router-dom';
+import { Toaster } from "@/components/ui/toaster";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         </Route>
 
       </Routes>
+      <Toaster />
     </main>
   )
 }
