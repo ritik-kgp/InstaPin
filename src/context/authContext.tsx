@@ -12,7 +12,6 @@ export const INITIAL_USER = {
   imageUrl: "",
   bio: "",
 };
-
 const INITIAL_STATE = {
   user: INITIAL_USER,
   isLoading: false,
@@ -30,7 +29,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const checkAuthUser = async () => {
+
+
+  const checkAuthUser = async () => {//to set the user if he is authenticated
     setIsLoading(true);
     try {
       const currentAccount = await getCurrentUser();
@@ -44,10 +45,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           bio: currentAccount.bio,
         });
         setIsAuthenticated(true);
-
         return true;
       }
-
       return false;
     } catch (error) {
       console.error(error);
@@ -57,20 +56,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+
+
   useEffect(() => {
     const cookieFallback = localStorage.getItem("cookieFallback");
     if (
-      cookieFallback === "[]" ||
-      cookieFallback === null ||
-      cookieFallback === undefined
+       cookieFallback === "[]"
+    //   cookieFallback === null ||
+    //   cookieFallback === undefined
     ) {
       navigate("/sign-in");
     }
 
-    checkAuthUser();
+    checkAuthUser();//call after every reload
   }, []);
 
-  const value = {
+  const value = {//INITIAL_STATE assigned some values
     user,
     setUser,
     isLoading,
