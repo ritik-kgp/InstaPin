@@ -142,7 +142,7 @@ export async function getCurrentUser() {
       console.log(error);
     }
   }
-
+///
   export function getFilePreview(fileId: string) {
     try {
       const fileUrl = storage.getFilePreview(
